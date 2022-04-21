@@ -32,7 +32,6 @@ export default class Home extends Vue {
 .cards{
   display: grid;
   margin: 2rem auto;
-  max-width: 1200px;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;

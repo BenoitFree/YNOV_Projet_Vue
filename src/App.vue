@@ -1,15 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/movie">Movie</router-link> |
-      <router-link to="/actor">Actor</router-link>
+    <Header />
+    <div id="main">
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
 <style>
+body{
+  padding: 0;
+  margin: 0;
+  background: #f0eae2;
+}
+
+:root {
+  --gray: #323232;
+  --orange: #f38019;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,16 +27,17 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+#main{
+  max-width: 1240px;
+  width: 100%;
+  padding: 1rem 15px;
+  margin: 0 auto;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
+<script>
+import Header from "@/components/Header";
+export default {
+  components: {Header}
+}
+</script>

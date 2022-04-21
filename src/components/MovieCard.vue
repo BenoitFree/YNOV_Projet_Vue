@@ -35,6 +35,7 @@ export default class MovieCard extends Vue {
     max-height: 350px;
     margin: 0 auto;
     overflow: hidden;
+    background: #fff;
 
   }
 </style>
