@@ -12,7 +12,7 @@ import iMovie from "@/common/Movie.interface";
 @Component
 export default class MovieCard extends Vue {
   private searchName = ''
-  async searchMovies(): void{
+  async searchMovies(): Promise<void>{
     if(this.searchName.length <= 2){
       return;
     }
@@ -22,7 +22,12 @@ export default class MovieCard extends Vue {
       movies.push({
         id: result.id,
         name: result.original_title,
-        description: result.overview
+        description: result.overview,
+        genres: [],
+        imagePath: result.poster_path,
+        releaseDate: result.release_date,
+        voteCount: result.vote_count,
+        voteAverage: result.vote_average
       })
     }
     this.$emit("search", movies)

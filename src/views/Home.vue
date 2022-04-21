@@ -35,6 +35,17 @@ export default class Home extends Vue {
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
+  place-items: center;
   gap: 1rem;
+}
+@media screen and (max-width: 1200px){
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 640px){
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>

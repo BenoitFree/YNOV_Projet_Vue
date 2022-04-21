@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="navigateToMovie">
     <p>{{ value.name }}</p>
-    <p>{{ value.description }}</p>
+    <p class="limit">{{ value.description }}</p>
   </div>
 </template>
 
@@ -28,14 +28,27 @@ export default class MovieCard extends Vue {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: 1px solid #000;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     flex: 1;
-    max-width: 250px;
+    max-width: 290px;
     width: 100%;
-    max-height: 350px;
-    margin: 0 auto;
+    height: 250px;
+    max-height: 250px;
+    margin: 0;
     overflow: hidden;
     background: #fff;
-
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform 200ms ease-in;
+  }
+  .card:hover{
+    transform: scale(1.02);
+  }
+  p{
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
   }
 </style>
