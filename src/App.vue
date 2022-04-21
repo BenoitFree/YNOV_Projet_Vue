@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <div id="main">
-      <router-view/>
+    <div id="main" class="container">
+      <router-view />
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 body{
   padding: 0;
   margin: 0;
-  background: #f0eae2;
+  background-color: #f0eae2;
 }
 
 :root {
@@ -23,15 +23,12 @@ body{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
 #main{
-  max-width: 1240px;
-  width: 100%;
-  padding: 1rem 15px;
   margin: 0 auto;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 </style>

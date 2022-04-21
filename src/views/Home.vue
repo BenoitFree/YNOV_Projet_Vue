@@ -28,7 +28,7 @@ export default class Home extends Vue {
 </script>
 
 
-<style scoped>
+<style>
 .cards{
   display: grid;
   margin: 2rem auto;

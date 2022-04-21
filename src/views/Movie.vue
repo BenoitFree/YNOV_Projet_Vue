@@ -1,36 +1,77 @@
 <template>
-  <div class="">
-    <p>{{movie.name}}</p>
-    <p>{{movie.description}}</p>
-    <p>{{movie.releaseDate}}</p>
-    <p>{{movie.voteCount}}</p>
-    <p>{{movie.voteAverage}}</p>
-    <p>{{movie.status}}</p>
-    <img :src="'https://image.tmdb.org/t/p/w200/'+movie.imagePath" />
-    <p>Trailer</p>
-    <iframe v-for="(video, index) in movie.videos" :key="index" width="560" height="315" :src="'https://www.youtube.com/embed/'+video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <p>Similars movies</p>
-    <movie-card v-for="(similar, index) in movie.similars" :key="index" :value="similar" />
-    <p>Casting :</p>
-    <ul>
-      <li v-for="(cast, index) in movie.cast" :key="index">
-        {{cast.name}}
-        {{cast.character}}
-        <img :src="'https://image.tmdb.org/t/p/w200/'+cast.imagePath" />
-      </li>
-    </ul>
+  <div class="movie" v-if="movie">
+    <div class="movie-header mb-5 pb-5">
+      <div class="movie--info">
+        <div class="info--title">
+          <h1>{{movie.name}}</h1>
+        </div>
+        <b-list-group>
+          <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="calendar" variant="secondary"></b-icon>
+            Date de sortie : {{movie.releaseDate}}
+          </b-list-group-item>
+          <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="tv" variant="secondary"></b-icon>
+            Status : {{movie.status}}
+          </b-list-group-item>
+          <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="star" variant="secondary"></b-icon>
+            Note : {{movie.voteAverage}}
+          </b-list-group-item>
+          <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="arrow-up-right" variant="secondary"></b-icon>
+            Vote positif des utilisateurs : {{movie.voteCount}}
+          </b-list-group-item>
+        </b-list-group>
+      </div>
+      <div class="movie--poster">
+        <img v-if="movie.imagePath" :src="'https://image.tmdb.org/t/p/w500/'+movie.imagePath" />
+      </div>
+    </div>
+    <!-- Bande annonce -->
+    <div class="mt-5 pb-5 row justify-content-center">
+      <h2 class="text-center py-5">Bande-annonce</h2>
+      <div class="d-flex flex-row justify-content-center gap-4">
+        <div class="p-0 m-0" v-for="(video, index) in movie.videos" :key="'C'+ index">
+          <b-embed type="iframe" width="560" height="315" :src="'https://www.youtube.com/embed/'+video" title="YouTube video player" frameborder="0" allowfullscreen></b-embed>
+        </div>
+      </div>
+    </div>
+    <!-- Films similaires -->
+    <div class="mt-5 pb-5 row justify-content-center" style="background: #323232">
+      <h2 class="text-center py-5 text-white">Films similaires</h2>
+      <div class="cards">
+        <movie-card v-for="(similar, index) in movie.similars" :key="'A'+ index" :value="similar" />
+      </div>
+    </div>
+    <div class="mt-5 pb-5 justify-content-center">
+      <h2 class="text-center py-5">Casting</h2>
+      <div class="d-grid">
+        <b-row>
+          <b-col cols="3" :id="index" class="mb-4" v-for="(cast, index) in movie.cast" :key="'B'+ index">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <img v-if="cast.imagePath" :src="'https://image.tmdb.org/t/p/w200/'+cast.imagePath" />
+              <b v-if="cast.name">{{cast.name}}</b>
+              <p v-if="cast.character">{{cast.character}}</p>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Vue, Watch} from 'vue-property-decorator';
 import axios from "axios";
 import iMovie from "@/common/Movie.interface";
 import iCast from "@/common/Cast.Interface";
 import MovieCard from "@/components/MovieCard.vue";
+
 @Component({
   components: {MovieCard}
 })
+
 export default class Movie extends Vue {
   private movie: iMovie | null = null
   async getCredits(): Promise<void>{
@@ -38,7 +79,7 @@ export default class Movie extends Vue {
     const {data} = await axios.get(`${process.env.VUE_APP_API_URL}movie/${this.$route.params.id}/credits?api_key=${process.env.VUE_APP_API_KEY}`)
     const listCast: iCast[] = []
     for (const castElement of data.cast) {
-      if(castElement.known_for_department != "Acting") continue
+      if(castElement.known_for_department != "Acting" || castElement.profile_path === null) continue
       listCast.push({
         id: castElement.id,
         name: castElement.name,
@@ -53,9 +94,12 @@ export default class Movie extends Vue {
     if(this.movie === null) return
     const {data} = await axios.get(`${process.env.VUE_APP_API_URL}movie/${this.$route.params.id}/videos?api_key=${process.env.VUE_APP_API_KEY}`)
     const videoKeys: string[] = []
+    let counter = 0
     for (const video of data.results) {
+      if(counter > 1) break
       if(video.type != "Trailer" && !video.official) continue
       videoKeys.push(video.key)
+      counter++
     }
     Vue.set(this.movie, "videos", videoKeys)
   }
@@ -82,8 +126,12 @@ export default class Movie extends Vue {
     Vue.set(this.movie, "similars", similars)
   }
 
+  @Watch("$route.params.id")
+  onPageIdChange(){
+    this.updateMovie()
+  }
 
-  async mounted(): Promise<void>{
+  async updateMovie(){
     let {data} = await axios.get(`${process.env.VUE_APP_API_URL}movie/${this.$route.params.id}?api_key=${process.env.VUE_APP_API_KEY}`)
     this.movie = {
       id: data.id,
@@ -99,11 +147,46 @@ export default class Movie extends Vue {
     this.getCredits()
     this.getVideos()
     this.getSimilarMovie()
+    scroll(0, 0)
+  }
+
+  async mounted(): Promise<void>{
+    this.updateMovie()
   }
 }
 </script>
 
 
 <style scoped>
-
+  ul, li, a, p, h1, h2{
+    margin: 0;
+  }
+  .movie-header{
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .movie--info{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+  }
+  .movie--poster{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex: 1;
+  }
+  .movie--poster img{
+    max-width: 320px;
+    object-fit: cover;
+  }
+  .info--title{
+    background-color: var(--gray);
+    color: #fff;
+    padding: 1rem;
+  }
 </style>
