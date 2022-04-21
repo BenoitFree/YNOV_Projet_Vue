@@ -11,4 +11,6 @@ export default interface iMovie{
     voteAverage: number
     status?: string
     cast?: iCast[]
+    videos?: string[]
+    similars?: iMovie[]
 }
