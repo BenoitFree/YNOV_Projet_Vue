@@ -110,7 +110,7 @@ export default class Movie extends Vue {
     const similars: iMovie[] = []
     let counter = 0
     for (const similar of data.results) {
-      if(counter > 2) break
+      if(counter > 3) break
       similars.push({
         id: similar.id,
         name: similar.original_title,

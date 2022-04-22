@@ -36,7 +36,7 @@ export default class Home extends Vue {
   display: grid;
   margin: 2rem auto;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
   place-items: center;
   gap: 1rem;
