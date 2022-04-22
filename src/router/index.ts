@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Movie.vue')
   },
   {
-    path: '/actor',
+    path: '/actor/:id',
     name: 'Actor',
     component: () => import('../views/Actor.vue')
   }

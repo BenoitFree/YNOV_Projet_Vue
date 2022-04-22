@@ -41,14 +41,14 @@
     <div class="mt-5 pb-5 row justify-content-center" style="background: #323232">
       <h2 class="text-center py-5 text-white">Films similaires</h2>
       <div class="cards">
-        <movie-card v-for="(similar, index) in movie.similars" :key="'A'+ index" :value="similar" />
+        <movie-card v-for="(similar, index) in movie.similars" :key="'similar'+ index" :value="similar" />
       </div>
     </div>
     <div class="mt-5 pb-5 justify-content-center">
       <h2 class="text-center py-5">Casting</h2>
       <div class="d-grid">
         <b-row>
-          <b-col cols="3" :id="index" class="mb-4" v-for="(cast, index) in movie.cast" :key="'B'+ index">
+          <b-col cols="3" :id="index" class="mb-4" v-for="(cast, index) in movie.cast" :key="'cast'+ index" @click="navigateToCast(cast.id)">
             <div class="d-flex flex-column justify-content-center align-items-center">
               <img v-if="cast.imagePath" :src="'https://image.tmdb.org/t/p/w200/'+cast.imagePath" />
               <b v-if="cast.name">{{cast.name}}</b>
@@ -150,8 +150,17 @@ export default class Movie extends Vue {
     scroll(0, 0)
   }
 
-  async mounted(): Promise<void>{
+  async mounted(): Promise<void> {
     this.updateMovie()
+  }
+
+  navigateToCast(castId: number): void {
+    this.$router.push({
+      name: "Actor",
+      params: {
+        id: castId.toString()
+      }
+    })
   }
 }
 </script>
