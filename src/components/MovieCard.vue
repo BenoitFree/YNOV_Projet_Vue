@@ -3,8 +3,8 @@
     <div class="card--header h-100" v-if="!isHovered">
       <img :src="'https://image.tmdb.org/t/p/w500/'+value.imagePath" />
     </div>
-    <div class="card--hover p-4" v-if="isHovered">
-      <h2>{{ value.name }}</h2>
+    <div class="card--hover h-100 p-4 text-white" v-if="isHovered">
+      <h2 class="mb-4">{{ value.name }}</h2>
       <p>{{ value.description }}</p>
     </div>
   </div>
@@ -64,9 +64,12 @@ export default class MovieCard extends Vue {
     width: 100%;
     object-fit: cover;
   }
+  .card--hover{
+    background-color: var(--gray);
+  }
   .card--hover h2{
     font-size: 24px;
-    color: var(--gray);
+    color: var(--orange);
     line-height: 1;
   }
 </style>
