@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>Search</h1>
+    <h1 class="text-center text-white text-uppercase">Ynov movie database</h1>
+    <h2>Search</h2>
     <search-movie @search="searchMovies"/>
     <movie-list :value="movies" label="Results" key-prefix="movie" />
     <movie-list :value="popular" label="Popular movies" key-prefix="popular" />

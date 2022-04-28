@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search-movie">
     <div class="row">
       <div class="col-6">
         <label for="name">Name</label>
@@ -13,11 +13,11 @@
     <div class="row">
       <div class="col-6">
         <label for="dateGte">Date between</label>
-        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" class="mb-2" @input="updateFilters"></b-form-datepicker>
+        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" nav-button-variant="secondary" close-button class="mb-2" @input="updateFilters"></b-form-datepicker>
       </div>
       <div class="col-6">
         <label for="dateLte">And</label>
-        <b-form-datepicker id="dateLte" v-model="search.releaseDateLte" class="mb-2" @input="updateFilters"></b-form-datepicker>
+        <b-form-datepicker id="dateLte" v-model="search.releaseDateLte" close-button today-button dark class="mb-2" @input="updateFilters"></b-form-datepicker>
       </div>
     </div>
   </div>

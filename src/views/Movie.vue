@@ -42,7 +42,7 @@
       </div>
     </div>
     <!-- Films similaires -->
-    <div class="mt-5 pb-5 row justify-content-center" v-if="movie.similars.length != 0">
+    <div class="mt-5 pb-5 row justify-content-center" v-if="movie.similars && movie.similars.length != 0">
       <h2 class="text-center py-5">Recommended movie</h2>
       <div class="cards">
         <movie-card v-for="(similar, index) in movie.similars" :key="'similar'+ index" :value="similar" />

@@ -69,3 +69,15 @@ label{
     background: none !important;
     border-color: #8a8d98 !important;
 }
+.form-control{
+    background-color: transparent !important;
+    color: #fff !important;
+}
+.b-form-datepicker svg{
+    opacity: .5;
+    color: #fff;
+}
+.search-movie label{
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
