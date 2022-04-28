@@ -88,3 +88,7 @@ label{
 .date-form .b-calendar-grid-body .col:hover span{
     color: var(--dark) !important;
 }
+
+select option{
+    color: #000;
+}

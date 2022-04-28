@@ -13,7 +13,7 @@
     <div class="row date-form">
       <div class="col-6">
         <label for="dateGte">Date between</label>
-        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" label-selected="Date" label-help="" dark reset-button close-button class="mb-2" @input="updateFilters"></b-form-datepicker>
+        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" label-help="" dark reset-button close-button class="mb-2" @input="updateFilters"></b-form-datepicker>
       </div>
       <div class="col-6">
         <label for="dateLte">And</label>
