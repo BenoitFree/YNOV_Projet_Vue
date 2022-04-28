@@ -1,11 +1,15 @@
 <template>
   <div>
-    <label for="name">Name</label>
-    <b-form-input id="name" v-model="search.name" @input="updateName" placeholder="Doctor Strange, Uncharted, ..." class="mb-2"></b-form-input>
-
-    <label for="genre">Genre</label>
-    <b-form-select id="genre" v-model="search.genre" @change="updateFilters" :options="genreOptions" class="mb-2 form-control"></b-form-select>
-
+    <div class="row">
+      <div class="col-6">
+        <label for="name">Name</label>
+        <b-form-input id="name" v-model="search.name" @input="updateName" placeholder="Doctor Strange, Uncharted, ..." class="mb-2"></b-form-input>
+      </div>
+      <div class="col-6">
+        <label for="genre">Genre</label>
+        <b-form-select id="genre" v-model="search.genre" @change="updateFilters" :options="genreOptions" class="mb-2 form-control"></b-form-select>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6">
         <label for="dateGte">Date between</label>

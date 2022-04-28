@@ -8,7 +8,7 @@
         <b-list-group>
           <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
             <b-icon icon="calendar" variant="secondary"></b-icon>
-            Date de sortie : {{movie.releaseDate}}
+            Release date : {{movie.releaseDate}}
           </b-list-group-item>
           <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
             <b-icon icon="tv" variant="secondary"></b-icon>
@@ -20,7 +20,11 @@
           </b-list-group-item>
           <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
             <b-icon icon="arrow-up-right" variant="secondary"></b-icon>
-            Vote positif des utilisateurs : {{movie.voteCount}}
+            Positif vote by viewer : {{movie.voteCount}}
+          </b-list-group-item>
+          <b-list-group-item v-if="movie.description" class="d-flex justify-content-start gap-4 align-items-start">
+            <b-icon icon="card-text" variant="secondary"></b-icon>
+            {{movie.description}}
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -30,7 +34,7 @@
     </div>
     <!-- Bande annonce -->
     <div class="mt-5 pb-5 row justify-content-center">
-      <h2 class="text-center py-5">Bande-annonce</h2>
+      <h2 class="text-center py-5">Trailer</h2>
       <div class="d-flex flex-row justify-content-center gap-4">
         <div class="p-0 m-0" v-for="(video, index) in movie.videos" :key="'C'+ index">
           <b-embed type="iframe" width="560" height="315" :src="'https://www.youtube.com/embed/'+video" title="YouTube video player" frameborder="0" allowfullscreen></b-embed>
@@ -38,21 +42,22 @@
       </div>
     </div>
     <!-- Films similaires -->
-    <div class="mt-5 pb-5 row justify-content-center" style="background: #323232">
-      <h2 class="text-center py-5 text-white">Films similaires</h2>
+    <div class="mt-5 pb-5 row justify-content-center">
+      <h2 class="text-center py-5">Recommended movie</h2>
       <div class="cards">
         <movie-card v-for="(similar, index) in movie.similars" :key="'similar'+ index" :value="similar" />
       </div>
     </div>
+    <!-- Casting -->
     <div class="mt-5 pb-5 justify-content-center">
       <h2 class="text-center py-5">Casting</h2>
       <div class="d-grid">
         <b-row>
-          <b-col cols="3" :id="index" class="mb-4" v-for="(cast, index) in movie.cast" :key="'cast'+ index" @click="navigateToCast(cast.id)">
-            <div class="d-flex flex-column justify-content-center align-items-center">
-              <img v-if="cast.imagePath" :src="'https://image.tmdb.org/t/p/w200/'+cast.imagePath" />
-              <b v-if="cast.name">{{cast.name}}</b>
-              <p v-if="cast.character">{{cast.character}}</p>
+          <b-col cols="2" class="mb-4" v-for="(cast, index) in movie.cast" :key="'cast'+ index" @click="navigateToCast(cast.id)">
+            <div role="button" class="d-flex flex-column justify-content-center align-items-center pointer-event">
+              <img class="h-100 w-100" style="object-fit: cover" v-if="cast.imagePath" :src="'https://image.tmdb.org/t/p/w200/'+cast.imagePath" />
+              <b class="text-white" v-if="cast.name">{{cast.name}}</b>
+              <p class="text-white text-center" v-if="cast.character">{{cast.character}}</p>
             </div>
           </b-col>
         </b-row>
@@ -106,11 +111,11 @@ export default class Movie extends Vue {
 
   async getSimilarMovie(): Promise<void>{
     if(this.movie === null) return
-    const {data} = await axios.get(`${process.env.VUE_APP_API_URL}movie/${this.$route.params.id}/similar?api_key=${process.env.VUE_APP_API_KEY}`)
+    const {data} = await axios.get(`${process.env.VUE_APP_API_URL}movie/${this.$route.params.id}/recommendations?api_key=${process.env.VUE_APP_API_KEY}`)
     const similars: iMovie[] = []
     let counter = 0
     for (const similar of data.results) {
-      if(counter > 2) break
+      if(counter > 3) break
       similars.push({
         id: similar.id,
         name: similar.original_title,
@@ -164,38 +169,3 @@ export default class Movie extends Vue {
   }
 }
 </script>
-
-
-<style scoped>
-  ul, li, a, p, h1, h2{
-    margin: 0;
-  }
-  .movie-header{
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  .movie--info{
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-  }
-  .movie--poster{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    flex: 1;
-  }
-  .movie--poster img{
-    max-width: 320px;
-    object-fit: cover;
-  }
-  .info--title{
-    background-color: var(--gray);
-    color: #fff;
-    padding: 1rem;
-  }
-</style>

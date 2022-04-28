@@ -6,17 +6,30 @@
           <h1>{{actor.name}}</h1>
         </div>
         <b-list-group>
-          <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
-            <b-icon icon="calendar" variant="secondary"></b-icon>
+          <b-list-group-item v-if="actor.gender" class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="person-bounding-box" variant="secondary"></b-icon>
+            <span v-if="actor.gender === 1">Genre : Female</span>
+            <span v-if="actor.gender === 2">Genre : Male</span>
+            <span v-if="actor.gender === 3">Genre : Trans</span>
+          </b-list-group-item><b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
+            <b-icon icon="calendar2-check" variant="secondary"></b-icon>
             Birthday : {{actor.birthday}}
           </b-list-group-item>
           <b-list-group-item class="d-flex justify-content-start gap-4 align-items-center">
-            <b-icon icon="calendar" variant="secondary"></b-icon>
+            <b-icon icon="file-person" variant="secondary"></b-icon>
             Age : {{age}} years old
           </b-list-group-item>
           <b-list-group-item v-if="actor.deathday" class="d-flex justify-content-start gap-4 align-items-center">
-            <b-icon icon="tv" variant="secondary"></b-icon>
+            <b-icon icon="calendar2-x-fill" variant="secondary"></b-icon>
             Deathday : {{actor.deathday}}
+          </b-list-group-item>
+        </b-list-group>
+        <b-list-group class="mt-4" v-if="actor.biography">
+          <b-list-group-item>
+            <b-button v-b-toggle.collapse-1 variant="dark">Show biography of {{actor.name}}</b-button>
+            <b-collapse id="collapse-1" class="mt-2">
+              {{actor.biography}}
+            </b-collapse>
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -25,8 +38,8 @@
       </div>
     </div>
     <!-- Films dans lesquels il est présent -->
-    <div class="mt-5 pb-5 row justify-content-center" style="background: #323232">
-      <h2 class="text-center py-5 text-white">Films</h2>
+    <div class="mt-5 pb-5 row justify-content-center">
+      <h2 class="text-center py-5">Movies</h2>
       <div class="cards">
         <movie-card v-for="(similar, index) in actor.movies" :key="'movie'+ index" :value="similar" />
       </div>
@@ -95,45 +108,12 @@ export default class Actor extends Vue {
       name: data.name,
       imagePath: data.profile_path,
       birthday: data.birthday,
-      deathday: data.deathday
+      deathday: data.deathday,
+      gender: data.gender,
+      biography: data.biography
     }
     this.getMovies()
     scroll(0, 0)
   }
 }
 </script>
-
-
-<style scoped>
-ul, li, a, p, h1, h2{
-  margin: 0;
-}
-.movie-header{
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-}
-.movie--info{
-  display: flex;
-  flex-direction: column;
-  flex: 2;
-}
-.movie--poster{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex: 1;
-}
-.movie--poster img{
-  max-width: 320px;
-  object-fit: cover;
-}
-.info--title{
-  background-color: var(--gray);
-  color: #fff;
-  padding: 1rem;
-}
-</style>
