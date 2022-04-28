@@ -1,7 +1,10 @@
 <template>
   <div class="home">
+    <h1>Search</h1>
     <search-movie @search="searchMovies"/>
+    <h1>Results</h1>
     <div class="cards">
+      <p v-if="movies.length === 0">No results</p>
       <movie-card v-for="(movie, index) in movies" :value="movie" :key="index" />
     </div>
   </div>
