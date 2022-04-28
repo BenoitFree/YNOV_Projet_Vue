@@ -25,7 +25,7 @@ export default class MovieCard extends Vue {
         }
       })
     }
-    @Prop() isHovered!: boolean
+    private isHovered = false
     handleHover(hovered: boolean) {
       this.isHovered = hovered
     }
