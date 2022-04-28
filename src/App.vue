@@ -40,7 +40,7 @@ body{
 
 </style>
 <script>
-import Header from "@/components/Header";
+import Header from "@/components/Navbar";
 export default {
   components: {Header}
 }
