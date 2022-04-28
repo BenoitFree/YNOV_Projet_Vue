@@ -1,8 +1,14 @@
 <template>
-  <nav id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link to="/movie">Movie</router-link>
-    <router-link to="/actor">Actor</router-link>
+  <nav id="nav" class="position-sticky top-0 z-100 shadow">
+    <div>
+    </div>
+    <div class="d-flex gap-4">
+      <router-link to="/">Home</router-link>
+      <a href="https://developers.themoviedb.org/3" target="_blank">
+        Documentation
+      </a>
+    </div>
+    <div></div>
   </nav>
 </template>
 
@@ -10,21 +16,28 @@
 #nav{
   width: 100%;
   height: 70px;
-  background: var(--gray);
+  background: var(--dark);
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   gap: 2rem;
+  z-index: 100;
 }
 
 #nav a {
   text-decoration: none;
-  font-weight: bold;
-  color: #fff;
+  color: var(--orange);
 }
 
 #nav a.router-link-exact-active {
   color: var(--orange);
+  font-weight: bold;
+
+}
+
+.logo{
+  width: 40px;
+  object-fit: cover;
 }
 
 </style>

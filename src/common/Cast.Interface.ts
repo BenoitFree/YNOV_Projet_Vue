@@ -12,4 +12,6 @@ export default interface iCast{
     birthday?: string
     deathday?: string
     movies?: iMovieCast[]
+    gender?: number
+    biography?: string
 }

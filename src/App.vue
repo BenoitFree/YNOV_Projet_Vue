@@ -11,12 +11,15 @@
 body{
   padding: 0;
   margin: 0;
-  background-color: #f0eae2;
+  min-height: 100vh;
+  background-color: var(--dark) !important;
 }
 
 :root {
-  --gray: #323232;
-  --orange: #f38019;
+  --dark: #060d17;
+  --dark_light: #2A0944;
+  --gray: #1A1A2E;
+  --orange: #ECB365;
 }
 
 #app {
@@ -29,6 +32,10 @@ body{
   margin: 0 auto;
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.card{
+  border-color: var(--orange) !important;
 }
 
 </style>

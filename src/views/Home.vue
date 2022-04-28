@@ -2,10 +2,12 @@
   <div class="home">
     <h1>Search</h1>
     <search-movie @search="searchMovies"/>
-    <h1>Results</h1>
-    <div class="cards">
-      <p v-if="movies.length === 0">No results</p>
-      <movie-card v-for="(movie, index) in movies" :value="movie" :key="index" />
+    <div class="mt-5">
+      <h1>Results</h1>
+      <p class="text-center text-white" v-if="movies.length === 0">No results</p>
+      <div class="cards">
+        <movie-card v-for="(movie, index) in movies" :value="movie" :key="index" />
+      </div>
     </div>
   </div>
 </template>
@@ -31,24 +33,8 @@ export default class Home extends Vue {
 </script>
 
 
-<style>
-.cards{
-  display: grid;
-  margin: 2rem auto;
-  width: 100%;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: center;
-  place-items: center;
-  gap: 1rem;
-}
-@media screen and (max-width: 1200px){
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
+<style scoped>
+  h1{
+    color: var(--orange);
   }
-}
-@media screen and (max-width: 640px){
-  .cards {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 </style>
