@@ -10,14 +10,14 @@
         <b-form-select id="genre" v-model="search.genre" @change="updateFilters" :options="genreOptions" class="mb-2 form-control"></b-form-select>
       </div>
     </div>
-    <div class="row">
+    <div class="row date-form">
       <div class="col-6">
         <label for="dateGte">Date between</label>
-        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" nav-button-variant="secondary" close-button class="mb-2" @input="updateFilters"></b-form-datepicker>
+        <b-form-datepicker id="dateGte" v-model="search.releaseDateGte" label-selected="Date" label-help="" dark reset-button close-button class="mb-2" @input="updateFilters"></b-form-datepicker>
       </div>
       <div class="col-6">
         <label for="dateLte">And</label>
-        <b-form-datepicker id="dateLte" v-model="search.releaseDateLte" close-button today-button dark class="mb-2" @input="updateFilters"></b-form-datepicker>
+        <b-form-datepicker id="dateLte" v-model="search.releaseDateLte" label-help="" dark close-button reset-button today-button class="mb-2" @input="updateFilters"></b-form-datepicker>
       </div>
     </div>
   </div>

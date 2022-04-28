@@ -32,6 +32,10 @@
             </b-collapse>
           </b-list-group-item>
         </b-list-group>
+        <b-button variant="outline" class="back-previous mt-4" @click="$router.go(-1)">
+          <b-icon icon="arrow-left" aria-hidden="true"></b-icon>
+          Back to movie
+        </b-button>
       </div>
       <div class="movie--poster">
         <img v-if="actor.imagePath" :src="'https://image.tmdb.org/t/p/w500/'+actor.imagePath" />
@@ -117,3 +121,11 @@ export default class Actor extends Vue {
   }
 }
 </script>
+
+<style lang="css" scoped>
+  .back-previous{
+    max-width: 200px;
+    color: var(--orange);
+    border-color: var(--orange);
+  }
+</style>

@@ -62,7 +62,7 @@ label{
 }
 .info--title{
     color: #fff;
-    padding: 1rem;
+    margin-bottom: 1rem;
 }
 .list-group-item{
     color: #babbc4 !important;
@@ -80,4 +80,11 @@ label{
 .search-movie label{
     margin-top: 1rem;
     margin-bottom: .5rem;
+}
+
+.date-form .b-calendar-grid-body span {
+    color: #fff !important;
+}
+.date-form .b-calendar-grid-body .col:hover span{
+    color: var(--dark) !important;
 }
